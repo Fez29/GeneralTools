@@ -1,0 +1,54 @@
+Guide for starters
+
+https://linuxhint.com/rest_api_python/
+
+More Advanced
+
+https://scotch.io/tutorials/build-a-restful-api-with-flask-the-tdd-way-part-2
+
+Enable CORS
+
+https://flask-cors.readthedocs.io/en/latest/
+
+Explore Flask abilities
+
+http://exploreflask.com/en/latest/views.html
+
+Data Storage
+
+http://exploreflask.com/en/latest/storing.html
+
+Compare to Flask to Serverless
+
+Connect to API - Python
+
+https://www.digitalocean.com/community/tutorials/how-to-use-web-apis-in-python-3
+
+api key - CoinMarketCap
+
+1f803880-bd88-43db-8b19-b671aed76f94
+
+Add Graphql support to flask
+
+https://medium.freecodecamp.org/how-to-develop-a-flask-graphql-graphene-mysql-and-docker-starter-kit-4d475f24ee76
+
+
+#################
+
+Hints, to install pip modules.
+
+Need to activate
+
+cd to folder
+
+source bin/activate
+
+then pip3 install <module>
+
+like "requests" for example.
+
+pip3 install requests
+
+Required for GetSupernodeAPI.py
+
+pip3 install requests
