@@ -50,3 +50,24 @@ curl -u username:password --digest -X POST http://127.0.0.1:19081/json_rpc -d '{
 #get_address_index
 #
 #curl -u username:password --digest -X POST http://127.0.0.1:19081/json_rpc -d '{"jsonrpc":"2.0","id":"0","method":"get_address_index","params":{"address":"GKRqGHyjvEnSX9CqhrWsXnXAJMraYrsdq8eDHaSsGrCpA2G96oY9VvRH9tqK7a47vZFwZ6eGUNyhARngqKN8iUnYGZpwws9vRDUHYNvCBY"}}' -H 'Content-Type: application/json'
+
+
+
+
+
+
+
+
+Graft Docker testing
+
+./graftnoded --testnet --detach
+
+Start RPC wallet with default graftnoded command
+
+./graft-wallet-rpc --rpc-bind-ip=0.0.0.0 --rpc-bind-port 18983 --wallet-file one --confirm-external-bind --password "" --rpc-login username:password --testnet --detach
+
+Testnet wallet
+
+school jaunt testing circle vipers mural spout vague
+hope upbeat tugs ajar zeal website erected itself
+inmate owed huts gorilla recipe dummy unplugs vigilant spout
