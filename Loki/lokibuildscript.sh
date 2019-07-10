@@ -1,14 +1,12 @@
 #testnet
 ############## loki Variables ##############
 lokibin="lokibuilddir_"
-Lokibinpath="$lokibin"
 GITLokiPATH=https://github.com/jagerman/loki.git
 GITLokiCLONEDIR="loki"
 LokibinDir="lokibin2"
 LOKI_BRANCH=jdev
 ############## Storage Server Variables ##############
 Storagebin="lokistorageserver_"
-Storagebinpath="$StorageServer$(echo $(date +%m_%d_%Y))"
 GITStorageServerPATH=https://github.com/loki-project/loki-storage-server.git
 GITStorageCLONEDIR="loki-storage-server"
 StorageBinDir="lokistorageserverbin"
@@ -16,20 +14,20 @@ STORAGESERVER_BRANCH=dev
 
 ############## Storage Server ##############
 
-n=`ls -d /home/snode/$Lokibinpath* | wc -l`
+n=`ls -d /home/snode/$lokibin* | wc -l`
 for i in $(echo $n) ; do
 let n=$n+1
 done
 
 #DIR="$lokibin$(echo $(date +%m_%d_%Y))_$(echo 000$n | tail -c 4)"
-DIR="$Lokibinpath$(echo $(date +%m_%d_%Y))_$(echo 000$n | tail -c 4)"
+DIR="$lokibin$(echo $(date +%m_%d_%Y))_$(echo 000$n | tail -c 4)"
 
 cd && sudo rm -f -r ~/$GITLokiCLONEDIR && git clone --recursive -b $LOKI_BRANCH $GITLokiPATH && mkdir -p ~/$DIR/logs && cd ~/$DIR && cmake -DENABLE_SYSLOG=ON ~/$GITLokiCLONEDIR && \ 
 make -j 1 && cd ~/$DIR/bin/ && ~/$DIR/bin/lokid --version > version.txt && ln -snf ~/$DIR/bin/ ~/$LokibinDir
 ############## End ##############
 
 ############## Storage Server ##############
-n=`ls -d /home/snode/$Storagebinpath* | wc -l`
+n=`ls -d /home/snode/$Storagebin* | wc -l`
 for i in $(echo $n) ; do
 let n=$n+1
 done
