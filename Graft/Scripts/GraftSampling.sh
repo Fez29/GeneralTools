@@ -36,7 +36,7 @@ if ((${#SN_COUNT[@]}));
 		CountT2Tier=`echo -n "$GetActiveSNList" | jq '[.result.items[] | select (.StakeAmount < 1500000000000000)]' | jq '.[].PublicId' | jq -s length | awk -v var1="$CountT1Tier" '{print $1-var1}'`
 		CountT3Tier=`echo -n "$GetActiveSNList" | jq '[.result.items[] | select (.StakeAmount < 2500000000000000)]' | jq '.[].PublicId' | jq -s length | awk -v var1="$CountT1Tier" -v var2="$CountT2Tier" '{print $1 - (var1 + var2)}'`
 		CountT4Tier=`echo -n "$GetActiveSNList" | jq '[.result.items[] | select (.StakeAmount > 2500000000000000)]' | jq '.[].PublicId' | jq -s length`
-		CreateJSON=`echo "{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":{\"items\": "$GetPublic"}, \"height\": $GetBlockHeight}"`
+		CreateJSON=`echo "{\"jsonrpc\":\"2.0\",\"id\":0,\"result\":{\"items\": "$GetPublic"}, \"height\": $GetBlockHeight, \"T1\": $CountT1Tier, \"T2\": $CountT2Tier, , \"T3\": $CountT3Tier, \"T4\": $CountT4Tier, , \"SN_IPandPORT\": $IPCOunt}"`
 		JSON=`echo -n "$CreateJSON" | jq .`
 		echo "T1 = $CountT1Tier"
 		echo "T2 = $CountT2Tier"
