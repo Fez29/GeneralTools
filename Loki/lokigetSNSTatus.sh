@@ -1,4 +1,5 @@
 #!/bin/bash
+## Stores ID in ID.txt and increments every time function runs
 SN_IP="127.0.0.1"
 SN_RPC_PORT="38157"
 SN_COUNT="2"
@@ -8,7 +9,9 @@ Service_Node_Pubkey_2="850767204d28b1aa0f8032cb7a74e30d7b88a6538d2098fb6971a0f88
 Service_Node_Pubkey_3=""
 Service_Node_Pubkey_4=""
 Service_Node_Pubkey_5=""
-
+Elastic_Indice="lokitestnetsntimestamp"
+elastichost='192.178.200.100'
+elastic_port="9299"
 SN_KEY=($Service_Node_Pubkey_1 $Service_Node_Pubkey_2 $Service_Node_Pubkey_3 $Service_Node_Pubkey_4 $Service_Node_Pubkey_5)
 
 while true; do
@@ -29,6 +32,9 @@ LastUpdateTime=`date -d @$CheckUptimeProofs +%H:%M:%S`
 CurrentTime3=`date -u +%s`
 TimeSubtract=$(("$CurrentTime3"-"$CheckUptimeProofs"))
 TimeSinceLastUpdate=`date -d @$TimeSubtract +%M:%S`
+TimeStamp2=`date '+%b%d, %Y @ %H:%M:%S.%3N'`
+TimeStamp=`date '+%Y-%m-%dT%H:%M:%S.%3NZ'`
+ID_Count=`cat ID.txt`
 
 Active=`if (($TimeSubtract < 3900))
 	then
@@ -44,9 +50,14 @@ Active=`if (($TimeSubtract < 3900))
 #echo "LastUpdate: $TimeSinceLastUpdate"
 #echo "$Active"
 
-CreateJSON=`echo "{\"jsonrpc\":\"2.0\",\"id\": 0,\"result\":{\"items\": {\"ServiceNodeActive\": \"$Active\", \"LastUpdateTime\": \"$TimeSinceLastUpdate\"} }, \"PubKey\": \"$Service_Node_Pubkey\"}"`
+CreateJSON=`echo "{\"jsonrpc\":\"2.0\",\"id\": \"$ID_Count\",\"@timestamp\": \"$TimeStamp\", \"result\":{\"items\": {\"ServiceNodeActive\": \"$Active\", \"LastUpdateTime\": \"$TimeSinceLastUpdate\"} }, \"PubKey\": \"$Service_Node_Pubkey\"}"`
 JSON=`echo -n "$CreateJSON" | jq .`
-echo -n "$JSON"
+#echo -n "$JSON"
+InsertElastic=`curl -X POST "$elastichost:$elastic_port/$Elastic_Indice/_doc/?pretty" -H 'Content-Type: application/json' -d "$JSON"`
+echo "$InsertElastic"
+#echo "$JSON"
+NEW_INC_COUNTER=$((ID_Count+1))
+echo $NEW_INC_COUNTER > ID.txt
 
 sleep 1
     done;
@@ -56,4 +67,3 @@ fi
 GetSample
 sleep 120; #that would mean running the actual script every 5 mins
 done
-
