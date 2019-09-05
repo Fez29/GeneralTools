@@ -1,0 +1,29 @@
+version: '3.7'
+services:
+  envoyproxy:
+    image: envoyproxy/envoy:latest
+    container_name: ${HOSTNAME}-envoyproxy
+    volumes:
+      - ./envoy.yaml:/etc/envoy/envoy.yaml
+    ports:
+      - 80:10000
+    networks:
+      - esnet
+  eds_server:
+    image: katacoda/eds_server:latest
+    container_name: ${HOSTNAME}-eds_server
+    volumes:
+      - eds_server:/home/${USER}/
+    ports:
+      - 8080:8080
+    networks:
+      - esnet
+
+volumes:
+  envoyproxy:
+    driver: local
+  eds_server:
+    driver: local
+
+networks:
+  esnet:
