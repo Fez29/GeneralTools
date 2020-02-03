@@ -1,5 +1,15 @@
 Ensure firewall ports are open!
 
+service names on service registry service would be equal to the entries in the "service_name" section.
+
+ie you should be able to call: "${IP_OF_EDS_SERVER}/myservice" for example
+````
+name: eds_cluster
+    type: STATIC
+    connect_timeout: 0.25s
+    hosts: [{ socket_address: { address: ${IP_OF_EDS_SERVER}, port_value: 8080 }}]
+````
+
 **envoyproxy:**
 ````
 docker run --name=proxy -d -p 80:10000 -v $(pwd)/envoy.yaml:/etc/envoy/envoy.yaml envoyproxy/envoy:latest
